@@ -191,7 +191,7 @@ body {
     padding: 30px 10px;
 }
 
-.picked p {
+.picked h4 {
     font-size: 23px;
     line-height: 1;
     margin: 0 0 66px;
@@ -460,7 +460,7 @@ body {
         padding: 0 5px;
     }
 
-    .picked p {
+    .picked h4 {
         font-size: 16px;
         line-height: 1;
         margin: 0 0 10px;

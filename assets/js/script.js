@@ -6,6 +6,11 @@ function game() {
     let sheldonChoice = '';
     const userChoiceElement = document.querySelector('.user-choice');
     const pickedElement = document.querySelector('.picked');
+    const userPickedElement = document.querySelector('.user-pick');
+    const sheldonPickedElement = document.querySelector ('.sheldon-pick')
+    const resultElement = document.querySelector('.result');
+    const resultTitleElement = resultElement.querySelector('.title');
+
     window.addEventListener('load', () => {
 
         document.querySelectorAll('.user-choice .game-card').forEach(card => {
@@ -23,34 +28,48 @@ function game() {
 
         userChoiceElement.classList.add('hidden');
         pickedElement.classList.remove('hidden');
+        buildChoiceElement(true, userChoice);
+        buildChoiceElement(false, sheldonChoice);
     }
-
+// return the second item in the class-list array which in this case indicates which option was selected
     function getUserChoice(target) {
-        console.log(target);
         if (target.nodeName === "IMG") {
             return target.parentElement.classList[1];
         }
         return target.classList[1];
     }
-
+// a randomised function that "sheldon" uses to select an option from the five available
     function getSheldonChoice() {
         return choices[Math.floor(Math.random() * 5)];
     }
-
+//calculates whether the user has won or not by comparing the concatenated string values of the user choice and sheldon choice against an array of possible win combinations
     function calculateWinner(usercard, sheldoncard) {
         if (usercard === sheldoncard) {
-            console.log('tie');
+            resultTitleElement.innerText = "I don't need sleep, I need answers";
         } else if (getUserWinsStatus(usercard + sheldoncard)) {
-            console.log('You Win');
+            resultTitleElement.innerText = "Alright, I'll bow to social pressure";
         } else {
-            console.log('you lose');
+            resultTitleElement.innerText = 'bazinga'
         }
-
     }
 
     function getUserWinsStatus(result) {
         return userWinResults.some(winStr => winStr === result);
 
+    }
+
+    //update the choices on the results block (hidden until an option is picked)
+
+    function buildChoiceElement (isItUserElement, className) {
+        const choiceElement = document.createElement ('div');
+        choiceElement.classList = [`game-card ${className}`];
+        choiceElement.innerHTML = `<img src="assets/images/icon-${className}.svg" alt="${className}">`;
+        if(isItUserElement) {
+            userPickedElement.append(choiceElement);
+        } else { 
+            sheldonPickedElement.append(choiceElement)
+
+        }
 
     }
 
