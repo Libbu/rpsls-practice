@@ -21,6 +21,8 @@ function game() {
                 startGame();
             })
         })
+
+        resultElement.querySelector('button').addEventListener('click', tryAgain)
     })
 
     function startGame() {
@@ -28,6 +30,7 @@ function game() {
 
         userChoiceElement.classList.add('hidden');
         pickedElement.classList.remove('hidden');
+        clearResultsBeforeAppend();
         buildChoiceElement(true, userChoice);
         buildChoiceElement(false, sheldonChoice);
     }
@@ -71,6 +74,17 @@ function game() {
 
         }
 
+    }
+
+    function tryAgain () {
+        userChoiceElement.classList.remove('hidden');
+        pickedElement.classList.add('hidden');
+
+    }
+
+    function clearResultsBeforeAppend() {
+        userPickedElement.innerHTML = '';
+        sheldonPickedElement.innerHTML = '';
     }
 
     //work with modal
