@@ -56,6 +56,7 @@ function game() {
             incrementScore();
         } else {
             resultTitleElement.innerText = 'bazinga'
+            incrementSheldonScore();
         }
     }
 
@@ -94,6 +95,15 @@ function game() {
 
         let oldScore = parseInt(document.getElementById('score').innerText);
         document.getElementById('score').innerText = ++oldScore;
+      
+    }
+
+    function incrementSheldonScore() {
+
+        let oldScore = parseInt(document.getElementById('sheldon-score').innerText);
+        document.getElementById('sheldon-score').innerText = ++oldScore;
+    
+    }
 
         //work with modal
         const rulesBtn = document.querySelector('.rules-btn');
@@ -118,7 +128,7 @@ function game() {
             modalBg.classList.remove('active');
         }
     }
-}
+
 
 
 game()
