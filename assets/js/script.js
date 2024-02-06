@@ -20,8 +20,9 @@ function game() {
 
     function startGame() {
         calculateWinner(userChoice, sheldonChoice)
+
         userChoiceElement.classList.add('hidden');
-        pickedElement.classList.remove('hidden')
+        pickedElement.classList.remove('hidden');
     }
 
     function getUserChoice(target) {
