@@ -4,9 +4,8 @@ function game() {
     const userWinResults = ['scissorspaper', 'paperrock', 'rocklizard', 'lizardspock', 'spockscissors', 'rockscissors', 'scissorslizard', 'lizardpaper', 'paperspock', 'spockrock'];
     let userChoice = '';
     let sheldonChoice = '';
-
-
-
+    const userChoiceElement = document.querySelector('.user-choice');
+    const pickedElement = document.querySelector('.picked');
     window.addEventListener('load', () => {
 
         document.querySelectorAll('.user-choice .game-card').forEach(card => {
@@ -21,6 +20,8 @@ function game() {
 
     function startGame() {
         calculateWinner(userChoice, sheldonChoice)
+        userChoiceElement.classList.add('hidden');
+        pickedElement.classList.remove('hidden')
     }
 
     function getUserChoice(target) {
@@ -52,6 +53,30 @@ function game() {
 
     }
 
+    //work with modal
+    const rulesBtn = document.querySelector('.rules-btn');
+    const modalBg = document.querySelector('.modal-bg');
+    const modal = document.querySelector('.modal');
+
+    rulesBtn.addEventListener('click', () => {
+        modal.classList.add('active');
+        modalBg.classList.add('active');
+    });
+
+    modalBg.addEventListener('click', (event) => {
+        if (event.target === modalBg) {
+            hideModal();
+        }
+    });
+
+    document.querySelector('.close').addEventListener('click', hideModal);
+
+    function hideModal() {
+        modal.classList.remove('active');
+        modalBg.classList.remove('active');
+    }
 }
+
+
 
 game()
