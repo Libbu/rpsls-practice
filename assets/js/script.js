@@ -58,7 +58,7 @@ function game() {
             incrementTries();
             incrementScore();
             userScoreForWin += 1
-            console.log( 'user score', userScoreForWin);
+            console.log('user score', userScoreForWin);
         } else {
             resultTitleElement.innerText = 'bazinga';
             incrementTries();
@@ -92,12 +92,18 @@ function game() {
 
     function calculateUltimateWinner() {
         if (userScoreForWin === 3) {
-            console.log('user wins');
-        } else if ( sheldonScoreForWin === 3) {
-            console.log('sheldon wins');
+            userChoiceElement.classList.add('hidden');
+            pickedElement.classList.add('hidden');
+            document.querySelector('.player-ultimate-win').classList.remove('hidden')
+            document.querySelector('.player-ultimate-win').classList.add('active')
+        } else if (sheldonScoreForWin === 3) {
+            userChoiceElement.classList.add('hidden');
+            pickedElement.classList.add('hidden');
+            document.querySelector('.sheldon-ultimate-win').classList.remove('hidden')
+            document.querySelector('.sheldon-ultimate-win').classList.add('active')
         }
     }
-    
+
 
     function tryAgain() {
         userChoiceElement.classList.remove('hidden');
@@ -105,7 +111,7 @@ function game() {
 
     }
 
-//clears the selected options before updating them with subsequent choices
+    //clears the selected options before updating them with subsequent choices
     function clearResultsBeforeAppend() {
         userPickedElement.innerHTML = '';
         sheldonPickedElement.innerHTML = '';
@@ -118,14 +124,14 @@ function game() {
         document.getElementById('score').innerText = ++oldScore;
 
     }
-//adds to sheldon score when sheldon wins a round
+    //adds to sheldon score when sheldon wins a round
     function incrementSheldonScore() {
 
         let oldScore = parseInt(document.getElementById('sheldon-score').innerText);
         document.getElementById('sheldon-score').innerText = ++oldScore;
 
     }
-//adds to the round counter, will add even if a tie
+    //adds to the round counter, will add even if a tie
     function incrementTries() {
 
         let oldScore = parseInt(document.getElementById('round').innerText);
