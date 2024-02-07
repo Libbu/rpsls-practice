@@ -11,7 +11,6 @@ function game() {
     const resultElement = document.querySelector('.result');
     const resultTitleElement = resultElement.querySelector('.title');
 
-    let currentScore = null
 
     window.addEventListener('load', () => {
 
@@ -51,15 +50,18 @@ function game() {
     function calculateWinner(usercard, sheldoncard) {
         if (usercard === sheldoncard) {
             resultTitleElement.innerText = "I don't need sleep, I need answers";
+            incrementTries();
         } else if (getUserWinsStatus(usercard + sheldoncard)) {
             resultTitleElement.innerText = "Alright, I'll bow to social pressure";
-            incrementScore();
+            incrementTries();
+            incrementScore(); 
         } else {
-            resultTitleElement.innerText = 'bazinga'
+            resultTitleElement.innerText = 'bazinga';
+            incrementTries();
             incrementSheldonScore();
         }
     }
-
+//look for the combination of selected moves in the array of potential winning combinations
     function getUserWinsStatus(result) {
         return userWinResults.some(winStr => winStr === result);
 
@@ -86,6 +88,7 @@ function game() {
 
     }
 
+
     function clearResultsBeforeAppend() {
         userPickedElement.innerHTML = '';
         sheldonPickedElement.innerHTML = '';
@@ -105,7 +108,30 @@ function game() {
     
     }
 
+    function incrementTries() {
+
+        let oldScore = parseInt(document.getElementById('round').innerText);
+        document.getElementById('round').innerText = ++oldScore;
+    
+    }
+    // reset button
+
+    const resetBtn = document.querySelector('.reset-btn');
+
+    resetBtn.addEventListener('click', resetGame);
+
+    function resetGame() {
+        document.getElementById('sheldon-score').innerText = 0;
+        document.getElementById('score').innerText = 0;
+        document.getElementById('round').innerText = 0;
+        userChoiceElement.classList.remove('hidden');
+        pickedElement.classList.add('hidden');
+    }
+
+
+
         //work with modal
+
         const rulesBtn = document.querySelector('.rules-btn');
         const modalBg = document.querySelector('.modal-bg');
         const modal = document.querySelector('.modal');
