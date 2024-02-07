@@ -10,6 +10,8 @@ function game() {
     const sheldonPickedElement = document.querySelector('.sheldon-pick')
     const resultElement = document.querySelector('.result');
     const resultTitleElement = resultElement.querySelector('.title');
+    let userScoreForWin = 0;
+    let sheldonScoreForWin = 0;
 
 
     window.addEventListener('load', () => {
@@ -54,14 +56,20 @@ function game() {
         } else if (getUserWinsStatus(usercard + sheldoncard)) {
             resultTitleElement.innerText = "Alright, I'll bow to social pressure";
             incrementTries();
-            incrementScore(); 
+            incrementScore();
+            userScoreForWin += 1
+            console.log( 'user score', userScoreForWin);
         } else {
             resultTitleElement.innerText = 'bazinga';
             incrementTries();
             incrementSheldonScore();
+            sheldonScoreForWin += 1;
+            console.log('sheldon score', sheldonScoreForWin);
         }
+        calculateUltimateWinner();
     }
-//look for the combination of selected moves in the array of potential winning combinations
+
+    //look for the combination of selected moves in the array of potential winning combinations
     function getUserWinsStatus(result) {
         return userWinResults.some(winStr => winStr === result);
 
@@ -82,39 +90,49 @@ function game() {
 
     }
 
+    function calculateUltimateWinner() {
+        if (userScoreForWin === 3) {
+            console.log('user wins');
+        } else if ( sheldonScoreForWin === 3) {
+            console.log('sheldon wins');
+        }
+    }
+    
+
     function tryAgain() {
         userChoiceElement.classList.remove('hidden');
         pickedElement.classList.add('hidden');
 
     }
 
-
+//clears the selected options before updating them with subsequent choices
     function clearResultsBeforeAppend() {
         userPickedElement.innerHTML = '';
         sheldonPickedElement.innerHTML = '';
     }
 
+    //adds to the player score when the player winns a round 
     function incrementScore() {
 
         let oldScore = parseInt(document.getElementById('score').innerText);
         document.getElementById('score').innerText = ++oldScore;
-      
-    }
 
+    }
+//adds to sheldon score when sheldon wins a round
     function incrementSheldonScore() {
 
         let oldScore = parseInt(document.getElementById('sheldon-score').innerText);
         document.getElementById('sheldon-score').innerText = ++oldScore;
-    
-    }
 
+    }
+//adds to the round counter, will add even if a tie
     function incrementTries() {
 
         let oldScore = parseInt(document.getElementById('round').innerText);
         document.getElementById('round').innerText = ++oldScore;
-    
+
     }
-    // reset button
+    // reset button reselts all counters
 
     const resetBtn = document.querySelector('.reset-btn');
 
@@ -124,36 +142,38 @@ function game() {
         document.getElementById('sheldon-score').innerText = 0;
         document.getElementById('score').innerText = 0;
         document.getElementById('round').innerText = 0;
+        userScoreForWin = 0;
+        sheldonScoreForWin = 0;
         userChoiceElement.classList.remove('hidden');
         pickedElement.classList.add('hidden');
     }
 
 
 
-        //work with modal
+    //work with modal
 
-        const rulesBtn = document.querySelector('.rules-btn');
-        const modalBg = document.querySelector('.modal-bg');
-        const modal = document.querySelector('.modal');
+    const rulesBtn = document.querySelector('.rules-btn');
+    const modalBg = document.querySelector('.modal-bg');
+    const modal = document.querySelector('.modal');
 
-        rulesBtn.addEventListener('click', () => {
-            modal.classList.add('active');
-            modalBg.classList.add('active');
-        });
+    rulesBtn.addEventListener('click', () => {
+        modal.classList.add('active');
+        modalBg.classList.add('active');
+    });
 
-        modalBg.addEventListener('click', (event) => {
-            if (event.target === modalBg) {
-                hideModal();
-            }
-        });
-
-        document.querySelector('.close').addEventListener('click', hideModal);
-
-        function hideModal() {
-            modal.classList.remove('active');
-            modalBg.classList.remove('active');
+    modalBg.addEventListener('click', (event) => {
+        if (event.target === modalBg) {
+            hideModal();
         }
+    });
+
+    document.querySelector('.close').addEventListener('click', hideModal);
+
+    function hideModal() {
+        modal.classList.remove('active');
+        modalBg.classList.remove('active');
     }
+}
 
 
 
